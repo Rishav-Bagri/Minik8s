@@ -2,18 +2,18 @@
 
 ## 1. Setup & Boilerplate
 - [✅] Initialize project folder
-- [⬜] Setup Node.js / Python backend with REST APIs
-- [⬜] Add Dockerfile for worker containers
-- [⬜] Setup basic logging system (console + optional file)
+- [✅] Setup Node.js / Python backend with REST APIs
+- [✅] Add Dockerfile for worker containers
+- [✅] Setup basic logging system (console + optional file)
 
 ## 2. Worker Container
-- [⬜] Make a containerized worker server
+- [✅] Make a containerized worker server
 - [⬜] Expose endpoint `/process-task` that:
   - [⬜] Accepts a task
   - [⬜] Simulates work (2-min delay or configurable)
-- [⬜] Expose `/metrics` endpoint:
-  - [⬜] Tasks processed
-  - [⬜] Active / current task count
+- [✅] Expose `/metrics` endpoint:
+  - [✅] Tasks processed
+  - [✅] Active / current task count
 
 ## 3. Queue System
 - [⬜] Implement a task queue (in-memory or Redis)
