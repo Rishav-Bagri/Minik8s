@@ -10,6 +10,9 @@ function delay(ms) {
 app.use("/metric",metricRouter)
 
 app.get("/", async (req, res) => {
+    return metrics.activeTasks-- && res.json({ msg: "server running" });
+});
+app.get("/process-task", async (req, res) => {
     metrics.tasksProcessed++
     metrics.activeTasks++
     console.log(`Received request at ${new Date().toISOString()}`);

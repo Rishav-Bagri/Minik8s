@@ -8,18 +8,18 @@
 
 ## 2. Worker Container
 - [✅] Make a containerized worker server
-- [⬜] Expose endpoint `/process-task` that:
-  - [⬜] Accepts a task
-  - [⬜] Simulates work (2-min delay or configurable)
+- [✅] Expose endpoint `/process-task` that:
+  - [✅] Accepts a task
+  - [✅] Simulates work (2-min delay or configurable)
 - [✅] Expose `/metrics` endpoint:
   - [✅] Tasks processed
   - [✅] Active / current task count
 
 ## 3. Queue System
-- [⬜] Implement a task queue (in-memory or Redis)
-- [⬜] API endpoint `/enqueue-task` to add tasks
-- [⬜] API endpoint `/dequeue-task` for workers to fetch tasks
-- [⬜] Track queue length in real-time
+- [✅] Implement a task queue (in-memory or Redis)
+- [✅] API endpoint `/enqueue-task` to add tasks
+- [✅] API endpoint `/dequeue-task` for workers to fetch tasks
+- [✅] Track queue length in real-time
 
 ## 4. Load Balancer
 - [⬜] Implement REST API endpoint `/dispatch-task`
