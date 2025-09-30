@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "dockerode": "^4.0.9",
     "express": "^5.1.0"
   },
   "devDependencies": {
