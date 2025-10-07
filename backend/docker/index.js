@@ -4,7 +4,7 @@ const docker = new Docker({
   port: 2375                 
 });
 
-ports=3002
+
 
 const allContainer=async()=> {
     const container=await docker.listContainers({all:false})
@@ -12,7 +12,7 @@ const allContainer=async()=> {
     return container   
 }
 
-const runContainer=async()=>{
+const runContainer=async(ports)=>{
     const container=await docker.createContainer({
         Image:"os-worker",
         ExposedPorts:{
@@ -28,7 +28,7 @@ const runContainer=async()=>{
     })
     console.log("contaienr created "+container.id);
     
-    container.start()
+    await container.start()
     console.log("contaienr started "+container.id);
     return container
 }
@@ -38,10 +38,10 @@ const killContainer=async(containerID)=>{
     
 }
 
-allContainer()
-// runContainer()
+// allContainer()
+// runContainer(   )
 // killContainer("bc9ab8c2203fc0f6cbd8e8bb6586139d38075800297a1b42d4e30ef8d56f52bc")
 
 
 
-module.exports={allContainer,runContainer}
+module.exports={allContainer,runContainer,killContainer}

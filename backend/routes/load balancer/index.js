@@ -1,5 +1,5 @@
 const express = require("express");
-const { totalReq, workerReqs } = require("../../metrics");
+const { totalReq, workerReqs, maxContainer } = require("../../metrics");
 const { date } = require("zod");
 const queue = require("../../queue");
 const lbRouter = express.Router();
@@ -38,7 +38,7 @@ Client:
 
 const LIMIT=100
 
-let urls =["3001","3002"]
+let urls =["3001","3002","3003","3004","3005","3006","3007","3008","3009","3010"]
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -46,12 +46,13 @@ function delay(ms) {
 
 function processTask(data){
     let index=0;
-    for(let i=0;i<workerReqs.length;i++){
+    for(let i=0;i<maxContainer;i++){
         if(workerReqs[i]<workerReqs[index]){
             index=i
         }
     }
     if(workerReqs[index]<LIMIT){
+        reqProcessing++
         workerReqs[index]++
         fetch("http://localhost:"+urls[index],{
             method: "POST",
@@ -61,10 +62,11 @@ function processTask(data){
             .then((resolve)=>{
                 
                 workerReqs[index]--
-                
+                reqProcessing--
             })
             .catch(e=>{
                 workerReqs[index]--
+                reqProcessing--
                 queue.enqueue(data)
             })
                  
@@ -75,10 +77,12 @@ function processTask(data){
 
 lbRouter.post("/",async(req,res)=>{
     let body=req.body
+    
     processTask(body)
     res.json({
         msg:"your req is being processed"
     })
 })
 
-module.exports = lbRouter;
+module.exports = { lbRouter, processTask };
+

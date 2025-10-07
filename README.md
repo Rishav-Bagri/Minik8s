@@ -32,9 +32,9 @@
   - [⬜] Monitor:
     - [⬜] Queue length
     - [⬜] Worker utilization (tasks in progress)
-  - [⬜] Scaling rules:
-    - [⬜] If queue length > threshold → start new worker container
-    - [⬜] If queue length = 0 & workers idle → stop container
+  - [✅] Scaling rules:
+    - [✅] If queue length > threshold → start new worker container
+    - [✅] If queue length = 0 & workers idle → stop container
   - [✅] Use Docker SDK / CLI to start/stop worker containers programmatically
   - [⬜] Expose `/autoscaler-status` endpoint for frontend
 
