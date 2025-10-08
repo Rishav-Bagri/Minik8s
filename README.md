@@ -20,6 +20,8 @@
   - [✅] API endpoint `/enqueue-task` to add tasks
   - [✅] API endpoint `/dequeue-task` for workers to fetch tasks
   - [✅] Track queue length in real-time
+  - [⬜] When a request is added to the queue, automatically trigger `processTask` if dispatcher/scaler is idle
+
 
   ## 4. Load Balancer
   - [✅] Implement REST API endpoint `/dispatch-task`
@@ -56,6 +58,11 @@
     - [⬜] Autoscaling triggers
     - [⬜] Queue handling
   - [⬜] Log everything for verification
+
+
+### in future:
+- add async safe queue or redis
+- retry of tasks
 
   ## Next Step After Backend
   - [⬜] Frontend dashboard to visualize:
