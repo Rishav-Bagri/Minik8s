@@ -84,3 +84,5 @@ o	Paste it to GPT (or search online) for solution
 o	EADDRINUSE → port already in use
 o	Cannot GET /process-task → route missing in backend
 
+use web for more solutions
+
