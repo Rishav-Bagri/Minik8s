@@ -11,7 +11,7 @@ app.use("/autoscaler",scalerRouter)
 
 app.get("/",(req,res)=>{
     return res.json({
-        msg:"chalsssssss bsdk"
+        msg:"chalsssssss"
     })
 })
 app.listen(3000)
