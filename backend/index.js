@@ -6,8 +6,8 @@ const app=express()
 
 
 app.use("/queue",queueRouter)
-app.use("/process-task",lbRouter)
-app.use("/autoscaler",scalerRouter)
+app.use("/process-task",lbRouter.lbRouter)
+app.use("/autoscaler",scalerRouter.scalerRouter)
 
 app.get("/",(req,res)=>{
     return res.json({

@@ -1,12 +1,11 @@
 const express = require("express");
 const queueRouter = express.Router();
 const queue = require("../../queue");
+const { autoScaler } = require("../autoScaler");
 
 queueRouter.post("/enqueue", (req, res) => {
-  const { task } = req.body;
-  if (!task) return res.status(400).json({ error: "Task required" });
-
-  queue.enqueue(task);
+  queue.enqueue(1);
+  autoScaler();
   res.json({ message: "Task added", queueLength: queue.getLength() });
 });
 

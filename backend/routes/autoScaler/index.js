@@ -20,15 +20,18 @@ async function stopContainer(ID,i){
     },1000)
 }
 
-scalerRouter.post("/",async (req, res) => {
-    while(queue.getLength()){
-        const task=queue.peek();
-        queue.dequeue();
-        processTask(task)
-        if((100*metrics.reqProcessing/(100*metrics.maxContainer))>threshold){
+const autoScaler = async () => {
+  while (queue.getLength()) {
+    const task = queue.peek();
+    queue.dequeue();
+    processTask(task);
+  }
+
+  if((100*metrics.reqProcessing/(100*metrics.maxContainer))>threshold && container.length<=10){
+            console.log("inisde aaaaaaa")
+            metrics.maxContainer++;
             const port = 3000 + metrics.maxContainer;
             let containerObject=await runContainer(port)
-            metrics.maxContainer++;
             container.push(containerObject.id)
         }
         if (Date.now() - lastScaleTime > COOLDOWN_MS) {
@@ -40,7 +43,12 @@ scalerRouter.post("/",async (req, res) => {
             }
         }
 
-    }
+  console.log("thik h bhai");
+};
+
+
+scalerRouter.post("/",async (req, res) => {
+    await autoScaler()
     return res.json({
         msg:"Scaler executed queue all executed"
     })
@@ -48,4 +56,4 @@ scalerRouter.post("/",async (req, res) => {
 
 
 
-module.exports = scalerRouter;
+module.exports = {scalerRouter,autoScaler};
