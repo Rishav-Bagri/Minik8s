@@ -1,7 +1,7 @@
 const express = require("express")
-const state = require("../../metrics") // using state object instead of destructured imports
+const state = require("../metrics") // using state object instead of destructured imports
 const { date } = require("zod")
-const queue = require("../../queue")
+const queue = require("../queue")
 const lbRouter = express.Router()
 
 /*
@@ -35,7 +35,7 @@ Client:
 */
 
 const LIMIT = 100
-let urls = ["3001","3002","3003","3004","3005","3006","3007","3008","3009","3010"]
+let urls = ["3001", "3002", "3003", "3004", "3005", "3006", "3007", "3008", "3009", "3010"]
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -53,22 +53,34 @@ function processTask(data) {
   if (state.workerReqs[index] < LIMIT) {
     state.reqProcessing++
     state.workerReqs[index]++
-
-    fetch("http://localhost:" + urls[index], {
-      method: "POST",
+    console.log(`http://localhost:${urls[index]}/process-task`);
+    
+    fetch(`http://localhost:${urls[index]}/process-task`, {
+      
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
     })
-      .then(() => {
-        state.workerReqs[index]--
-        state.reqProcessing--
+      .then((response) => {
+        // ⭐⭐⭐ FIRST, CHECK IF RESPONSE IS OK ⭐⭐⭐
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        // ⭐⭐⭐ THEN PARSE THE JSON ⭐⭐⭐
+        return response.json();
+      })
+      .then((data) => {
+        // ⭐⭐⭐ NOW ACCESS THE MESSAGE ⭐⭐⭐
+        console.log("✅ Response:", data.msg);
+        state.workerReqs[index]--;
+        state.reqProcessing--;
       })
       .catch(e => {
-        state.workerReqs[index]--
-        state.reqProcessing--
-        queue.enqueue(data)
-      })
-  } 
+        console.log("❌ Fetch error:", e.message);
+        state.workerReqs[index]--;
+        state.reqProcessing--;
+        queue.enqueue(data);
+      });
+  }
   // else if all workers are busy, push back to queue
   else {
     queue.enqueue(data)

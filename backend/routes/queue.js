@@ -1,11 +1,14 @@
 const express = require("express");
 const queueRouter = express.Router();
-const queue = require("../../queue");
-const { autoScaler } = require("../autoScaler");
+const queue = require("../queue"); // Changed from '../../queue'
+const { autoScaler } = require("./autoscaler"); // Changed from '../autoScaler'
 
 queueRouter.post("/enqueue", (req, res) => {
   queue.enqueue(1);
-  autoScaler();
+  // Call autoscaler asynchronously to avoid blocking
+  autoScaler().catch(err => {
+    console.error("Error in autoscaler from enqueue:", err);
+  });
   res.json({ message: "Task added", queueLength: queue.getLength() });
 });
 

@@ -1,17 +1,20 @@
 const express = require("express")
 const queueRouter = require("./routes/queue")
-const lbRouter = require("./routes/load balancer")
-const scalerRouter = require("./routes/autoScaler")
-const app=express()
+const lbRouter = require("./routes/loadbalancer")
+const scalerRouter = require("./routes/autoscaler")
+const app = express()
 
+app.use(express.json()) // Don't forget this!
+app.use("/queue", queueRouter)
+app.use("/process-task", lbRouter.lbRouter)
+app.use("/autoscaler", scalerRouter.scalerRouter)
 
-app.use("/queue",queueRouter)
-app.use("/process-task",lbRouter.lbRouter)
-app.use("/autoscaler",scalerRouter.scalerRouter)
-
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     return res.json({
-        msg:"chalsssssss"
+        msg: "Server running"
     })
 })
-app.listen(3000)
+
+app.listen(3000, () => {
+    console.log("Server started on port 3000")
+})

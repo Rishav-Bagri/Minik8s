@@ -1,4 +1,4 @@
-const total = 599;
+const total = 600;
 const batchSize = 100;
 
 for (let i = 0; i < total; i += batchSize) {
