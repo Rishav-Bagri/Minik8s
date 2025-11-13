@@ -3,7 +3,6 @@ const queue = require("../queue");
 const metrics = require("../metrics");
 const { runContainer, killContainer } = require("../docker");
 const { processTask } = require("./loadbalancer");
-const { promise } = require("zod");
 const scalerRouter = express.Router();
 
 const THRESHOLD_UP = 80;

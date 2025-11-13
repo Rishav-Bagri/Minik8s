@@ -1,6 +1,5 @@
 const express = require("express")
 const state = require("../metrics") // using state object instead of destructured imports
-const { date } = require("zod")
 const queue = require("../queue")
 const lbRouter = express.Router()
 
