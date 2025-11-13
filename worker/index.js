@@ -16,9 +16,9 @@ app.get("/process-task", async (req, res) => {
     metrics.tasksProcessed++
     metrics.activeTasks++
     console.log(`Received request at ${new Date().toISOString()}`);
-    await delay(120000);
+    await delay(20000);
     console.log(`Finished task at ${new Date().toISOString()}`);
     
-    return metrics.activeTasks-- && res.json({ msg: "chalsssssss bsdk" });
+    return metrics.activeTasks-- && res.json({ msg: "process hogya complete hahhaahhahahahahah finally" });
 });
 app.listen(3000)

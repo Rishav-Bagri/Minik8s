@@ -2,9 +2,11 @@ const express = require("express");
 const queueRouter = express.Router();
 const queue = require("../queue"); // Changed from '../../queue'
 const { autoScaler } = require("./autoscaler"); // Changed from '../autoScaler'
+const { totalReq } = require("../metrics");
 
 queueRouter.post("/enqueue", (req, res) => {
-  queue.enqueue(1);
+  queue.enqueue(3);
+  totalReq++;
   // Call autoscaler asynchronously to avoid blocking
   autoScaler().catch(err => {
     console.error("Error in autoscaler from enqueue:", err);

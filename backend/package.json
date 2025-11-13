@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "async-mutex": "^0.5.0",
+    "cors": "^2.8.5",
     "dockerode": "^4.0.9",
     "express": "^5.1.0"
   },

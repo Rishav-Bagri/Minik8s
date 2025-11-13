@@ -34,7 +34,7 @@ Client:
   - Polls /result/:taskId → gets output
 */
 
-const LIMIT = 100
+const LIMIT = 50
 let urls = ["3001", "3002", "3003", "3004", "3005", "3006", "3007", "3008", "3009", "3010"]
 
 function delay(ms) {
@@ -73,12 +73,15 @@ function processTask(data) {
         console.log("✅ Response:", data.msg);
         state.workerReqs[index]--;
         state.reqProcessing--;
+        
       })
       .catch(e => {
-        console.log("❌ Fetch error:", e.message);
+        
         state.workerReqs[index]--;
         state.reqProcessing--;
-        queue.enqueue(data);
+        if(data>0){
+          queue.enqueue(data-1)
+        }
       });
   }
   // else if all workers are busy, push back to queue
