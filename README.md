@@ -1,5 +1,18 @@
 # Autoscaler + Load Balancer + Workers + Queue Backend Roadmap
 
+
+too lazy to write a better readme but
+this is as u can see above autoscaler + load balancer and queue
+
+<img width="530" height="855" alt="image" src="https://github.com/user-attachments/assets/e69d6347-b5be-4f42-968e-cb27d4675ed0" />
+
+
+
+https://github.com/user-attachments/assets/2ae72ee4-ab9c-456a-93dd-203f9d180cf2
+
+
+
+
 ## 1. Setup & Boilerplate
 - [✅] Initialize project folder
 - [✅] Setup Node.js / Python backend with REST APIs
